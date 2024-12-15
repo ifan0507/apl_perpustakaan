@@ -1,0 +1,74 @@
+#logo {
+    color: #4d34eb !important;
+}
+
+.sidebar .nav-link.active {
+    background-color: transparent !important;
+    color: #007bff !important;
+}
+
+.sidebar .nav-link.active:hover {
+    color: #0056b3 !important;
+    background-color: transparent !important;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #060d51 !important;
+    color: white !important;
+    border-color: #060d51 !important; /* Ubah border aktif */
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #6c757d !important; /* Warna teks untuk elemen disabled */
+}
+
+/* Menambahkan sedikit ruang di bawah form agar tidak terlalu rapat dengan tabel */
+form {
+    margin-bottom: 10px;
+}
+
+/* Responsif untuk tampilan mobile */
+.card-header {
+    padding-bottom: 0;
+}
+
+.card-body {
+    padding-top: 0;
+}
+
+/* Mengurangi margin tabel untuk menyentuh bagian bawah form */
+.table-responsive {
+    margin-top: 10px;
+}
+
+/* .card-header .btn {
+    margin-left: 10px; 
+} */
+
+/* Mengurangi padding pada card-header untuk memperbaiki jarak */
+.card-header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* Mengurangi margin tabel untuk menyentuh bagian bawah form */
+.table-responsive {
+    margin-top: 10px;
+}
+
+/* Responsif untuk tampilan mobile */
+@media (max-width: 768px) {
+    .card-header .d-flex {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .input-group {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .table-responsive {
+        margin-top: 15px;
+    }
+}
