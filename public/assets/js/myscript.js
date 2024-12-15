@@ -8,6 +8,17 @@ $(document).ready(function () {
             icon: "success",
         });
     }
+
+    // Flash Buku
+    const flashBuku = $(".flash-buku").data("flashdata");
+    if (flashBuku) {
+        Swal.fire({
+            title: "Data Buku",
+            text: "Berhasil " + flashBuku,
+            icon: "success",
+        });
+    }
+
     $(".btn-hapus").on("click", function (e) {
         e.preventDefault();
         Swal.fire({
@@ -22,13 +33,6 @@ $(document).ready(function () {
             if (result.isConfirmed) {
                 $(this).closest(".form-delete").submit();
             }
-        });
-    });
-    $(".form-delete").on("submit", () => {
-        Swal.fire({
-            icon: "success",
-            title: "Berhasil!",
-            text: "Data berhasil dihapus!",
         });
     });
 });

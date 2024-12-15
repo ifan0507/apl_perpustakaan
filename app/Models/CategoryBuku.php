@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class CategoryBuku extends Model
 {
@@ -13,8 +13,8 @@ class CategoryBuku extends Model
     protected $fillable = ['kode_category', 'name'];
     protected $timestamp = false;
 
-    public function buku(): BelongsTo
+    public function buku(): HasMany
     {
-        return $this->belongsTo(Buku::class);
+        return $this->hasMany(Buku::class);
     }
 }

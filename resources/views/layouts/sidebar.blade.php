@@ -16,7 +16,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ url('/category') }}" class="nav-link {{ $activeMenu == 'category' ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fa-solid fa-layer-group"></i>
                         <p>Categori Buku</p>
                     </a>
                 </li>

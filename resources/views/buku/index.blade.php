@@ -13,6 +13,7 @@
                                 </button>
                             </a>
                         </div>
+                        <div class="flash-buku" data-flashData="{{ session('status') }}"></div>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <div class="table-responsive">
@@ -20,9 +21,9 @@
                                     <thead style="border-bottom:0;">
                                         <tr style="border-bottom:0;">
                                             <th style="border-bottom:0;">Kode</th>
-                                            <th style="border-bottom:0;">Judul</th>
-                                            <th style="border-bottom:0;">Jenis</th>
                                             <th style="border-bottom:0;">Kategori</th>
+                                            <th style="border-bottom:0;">Jenis</th>
+                                            <th style="border-bottom:0;">Judul</th>
                                             <th style="border-bottom:0;">Pengarang</th>
                                             <th style="border-bottom:0;">ISBN</th>
                                             <th style="border-bottom:0;">Penerbit</th>
@@ -32,34 +33,40 @@
                                             <th style="width: 15px; border-bottom:0;">Action</th>
                                         </tr>
                                     </thead>
-                                    {{-- <tbody>
-                                        @foreach ($visiMisis as $visiMisi)
+                                    <tbody>
+                                        @foreach ($bukus as $buku)
                                             <tr>
-                                                <td>{{ $visiMisi->visi }}</td>
-                                                <td>{{ $visiMisi->misi }}</td>
+                                                <td>{{ $buku->kode_buku }}</td>
+                                                <td>{{ $buku->category->name }}</td>
+                                                <td>{{ $buku->jenis }}</td>
+                                                <td>{{ $buku->judul }}</td>
+                                                <td>{{ $buku->pengarang }}</td>
+                                                <td>{{ $buku->isbn }}</td>
+                                                <td>{{ $buku->penerbit }}</td>
+                                                <td>{{ $buku->tahun_terbit }}</td>
+                                                <td>{{ $buku->bahasa }}</td>
+                                                <td>{{ $buku->jumlah_halaman }}</td>
                                                 <td>
                                                     <div class="d-inline-flex gap-2">
                                                         <div class="rounded-circle">
-                                                            <button type="button" class="btn-edit-visi btn btn-sm"
-                                                                style="background-color: #060d51; color: white"
-                                                                data-id="{{ $visiMisi->id }}"><i
-                                                                    class="fa-regular fa-pen-to-square"></i></button>
+                                                            <a href="{{ route('buku.edit', ['id' => $buku->id]) }}">
+                                                                <button type="button" class="btn btn-sm btn-primary"><i
+                                                                        class="fa-regular fa-pen-to-square"></i></button>
+                                                            </a>
                                                         </div>
-                                                        <form
-                                                            action="{{ route('visiMisi.delete', ['id' => $visiMisi->id]) }}"
-                                                            method="post" id="form-delete-visi" class="form-delete  m-0">
+                                                        <form action="{{ route('buku.delete', ['id' => $buku->id]) }}"
+                                                            method="post" class="form-delete  m-0">
                                                             @method('delete')
                                                             @csrf
                                                             <button type="submit" name="btn-hapus"
-                                                                style="background-color: #060d51; color: white"
-                                                                class="btn-hapus btn btn-sm"><i
+                                                                class="btn-hapus btn btn-sm btn-danger"><i
                                                                     class="fa-solid fa-trash-can"></i></button>
                                                         </form>
                                                     </div>
                                                 </td>
                                             </tr>
                                         @endforeach
-                                    </tbody> --}}
+                                    </tbody>
                                 </table>
                             </div>
                         </div>

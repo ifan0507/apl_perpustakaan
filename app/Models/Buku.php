@@ -4,18 +4,29 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Buku extends Model
 {
     use HasFactory;
     protected $table = 'bukus';
-    protected $width = "category";
-    protected $fillable = ['category_id', 'kode_buku', 'judul', 'jenis', 'penerbit', 'tahun_terbit', 'bahasa', 'isbn', 'jumlah_halaman', 'pengarang', 'tahun_terbit', 'jumlah_halaman', ''];
+    protected $with = "category";
+    protected $fillable = [
+        'category_id',
+        'kode_buku',
+        'judul',
+        'jenis',
+        'penerbit',
+        'bahasa',
+        'isbn',
+        'jumlah_halaman',
+        'pengarang',
+        'tahun_terbit'
+    ];
     protected $timestamp = false;
 
-    public function category(): HasMany
+    public function category(): BelongsTo
     {
-        return $this->hasMany(CategoryBuku::class);
+        return $this->belongsTo(CategoryBuku::class);
     }
 }
