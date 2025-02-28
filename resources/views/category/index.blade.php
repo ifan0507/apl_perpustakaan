@@ -28,29 +28,33 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($categories as $categori)
-                                            <tr>
-                                                <td>{{ $categori->kode_category }}</td>
-                                                <td>{{ $categori->name }}</td>
-                                                <td>
-                                                    <div class="d-inline-flex gap-2">
-                                                        <div class="rounded-circle">
-                                                            <a href="{{ route('category.edit', ['id' => $categori->id]) }}">
-                                                                <button type="button" class="btn btn-sm btn-primary"><i
-                                                                        class="fa-regular fa-pen-to-square"></i></button>
-                                                            </a>
+                                            @if ($categori->delete_at == '0')
+                                                <tr>
+                                                    <td>{{ $categori->kode_category }}</td>
+                                                    <td>{{ $categori->name }}</td>
+                                                    <td>
+                                                        <div class="d-inline-flex gap-2">
+                                                            <div class="rounded-circle">
+                                                                <a
+                                                                    href="{{ route('category.edit', ['id' => $categori->id]) }}">
+                                                                    <button type="button" class="btn btn-sm btn-primary"><i
+                                                                            class="fa-regular fa-pen-to-square"></i></button>
+                                                                </a>
+                                                            </div>
+                                                            <form
+                                                                action="{{ route('categori.delete', ['id' => $categori->id]) }}"
+                                                                method="post" id="form-delete-visi"
+                                                                class="form-delete  m-0">
+                                                                @method('delete')
+                                                                @csrf
+                                                                <button type="submit" name="btn-hapus"
+                                                                    class="btn-hapus btn btn-sm btn-danger"><i
+                                                                        class="fa-solid fa-trash-can"></i></button>
+                                                            </form>
                                                         </div>
-                                                        <form
-                                                            action="{{ route('categori.delete', ['id' => $categori->id]) }}"
-                                                            method="post" id="form-delete-visi" class="form-delete  m-0">
-                                                            @method('delete')
-                                                            @csrf
-                                                            <button type="submit" name="btn-hapus"
-                                                                class="btn-hapus btn btn-sm btn-danger"><i
-                                                                    class="fa-solid fa-trash-can"></i></button>
-                                                        </form>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                                    </td>
+                                                </tr>
+                                            @endif
                                         @endforeach
                                     </tbody>
                                 </table>

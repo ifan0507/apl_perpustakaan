@@ -29,6 +29,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        $kode = CategoryBuku::orderBy('id', 'desc')->first();
+        $newKode = $kode ? ((int)substr($kode->kode_category, 2) + 1) : 1;
+        $kodeJenerate = 'KC' . str_pad($newKode, 3, '0', STR_PAD_LEFT);
+
 
         $breadcrumb = (object)[
             'title' => 'Tambah Kategori Buku',
@@ -36,7 +40,7 @@ class CategoryController extends Controller
         ];
 
         $activeMenu = 'category';
-        return view('category.create', ['activeMenu' => $activeMenu, 'breadcrumb' => $breadcrumb]);
+        return view('category.create', ['activeMenu' => $activeMenu, 'breadcrumb' => $breadcrumb, 'kode' => $kodeJenerate]);
     }
 
     /**
@@ -45,11 +49,8 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'kode_category' => ['required', 'unique:category_bukus,kode_category'],
             'name' => ['required', 'unique:category_bukus,name'],
         ], [
-            'kode_category.required' => 'Kode kategori harus diisi.',
-            'kode_category.unique' => 'Kode kategori sudah dipakai.',
             'name.required' => 'Nama kategori harus diisi.',
             'name.unique' => 'Nama kategori sudah dipakai.'
         ]);
@@ -96,11 +97,6 @@ class CategoryController extends Controller
     public function update(Request $request, string $id)
     {
         $category = CategoryBuku::findOrFail($id);
-        if ($category['kode_category'] == $request->input('e-kode_category')) {
-            $roleKode = ['required'];
-        } else {
-            $roleKode =  ['required', 'unique:category_bukus,kode_category'];
-        }
 
         if ($category['name'] == $request->input('e-name')) {
             $roleName = ['required'];
@@ -109,7 +105,6 @@ class CategoryController extends Controller
         }
 
         $request->validate([
-            'e-kode_category' => $roleKode,
             'e-name' => $roleName,
         ], [
             'e-kode_category.required' => 'Kode kategori harus diisi.',
@@ -124,9 +119,9 @@ class CategoryController extends Controller
                 'name' => $request->input('e-name'),
             ]);
             Session::flash('status', 'Diperbarui');
-            return redirect()->route('category')->with('success', 'Berhasil mengupdate data kategori.');
+            return redirect()->route('category');
         } catch (\Exception $e) {
-            return redirect()->route('category')->with('error', 'Gagal menyimpan data kategori.');
+            return redirect()->route('category');
         }
     }
 
@@ -136,8 +131,11 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         try {
-            CategoryBuku::where('id', $id)->delete();
-            return redirect()->route('category')->with('success', 'Berhasil menghapus data kategori.');
+            CategoryBuku::where('id', $id)->update([
+                'delete_at' => '1'
+            ]);
+            Session::flash('status', 'Dihapus.');
+            return redirect()->route('category');
         } catch (\Exception $e) {
             return redirect()->route('category')->with('error', 'Gagal menghapus data kategori.');
         }

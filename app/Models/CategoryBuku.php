@@ -10,7 +10,7 @@ class CategoryBuku extends Model
 {
     use HasFactory;
     protected $table = 'category_bukus';
-    protected $fillable = ['kode_category', 'name'];
+    protected $fillable = ['kode_category', 'name', 'delete_at'];
     protected $timestamp = false;
 
     public function buku(): HasMany

@@ -31,6 +31,10 @@ class BukuController extends Controller
      */
     public function create()
     {
+        $kode = Buku::orderBy('id', 'desc')->first();
+        $newKode = $kode ? ((int)substr($kode->kode_buku, 2) + 1) : 1;
+        $kodeJenerate = 'KB' . str_pad($newKode, 3, '0', STR_PAD_LEFT);
+
         $categori = CategoryBuku::all();
         $breadcrumb = (object)[
             'title' => 'Create Buku',
@@ -38,7 +42,7 @@ class BukuController extends Controller
         ];
 
         $activeMenu = 'buku';
-        return view('buku.create', ['activeMenu' => $activeMenu, 'breadcrumb' => $breadcrumb, 'category' => $categori]);
+        return view('buku.create', ['activeMenu' => $activeMenu, 'breadcrumb' => $breadcrumb, 'category' => $categori, 'kode' => $kodeJenerate]);
     }
 
     /**
@@ -47,7 +51,6 @@ class BukuController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'kode_buku' => ['required', 'unique:bukus,kode_buku'],
             'judul' => ['required'],
             'pengarang' => ['required'],
             'penerbit' => ['required'],
@@ -58,17 +61,15 @@ class BukuController extends Controller
             'kategori' => ['required'],
             'jenis' => ['required'],
         ], [
-            'kode_buku.required' => 'Kode Tidak Boleh Kosong',
-            'kode_buku.unique' => 'Kode buku sudah terdaftar',
             'judul.required' => 'Judul Buku Harus Diisi',
             'pengarang.required' => 'Pengarang Harus Diisi',
             'penerbit.required' => 'Penerbit Harus Diisi',
-            'thn_terbit.required' => 'Tahun Terbit Harus Diisi',
+            'thn_terbit.required' => 'Tahun Terbit Harus Dipilih',
             'isbn.required' => 'ISBN Harus Diisi',
             'jml_halaman.required' => 'Jumlah Halaman Harus Diisi',
-            'bahasa.required' => 'Bahasa Harus Diisi',
-            'kategori.required' => 'Kategori Harus Diisi',
-            'jenis.required' => 'Jenis Buku Harus Diisi',
+            'bahasa.required' => 'Bahasa Harus Dipilih',
+            'kategori.required' => 'Kategori Harus Dipilih',
+            'jenis.required' => 'Jenis Buku Harus Dipilih',
         ]);
         try {
             Buku::create([
@@ -120,15 +121,8 @@ class BukuController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $dataLama = Buku::with('category')->findOrFail($id);
-        if ($dataLama['kode_buku'] == $request->kode_buku) {
-            $role = 'required';
-        } else {
-            $role = ['required', 'unique:bukus,kode_buku'];
-        }
 
         $request->validate([
-            'kode_buku' => $role,
             'judul' => ['required'],
             'pengarang' => ['required'],
             'penerbit' => ['required'],
@@ -139,16 +133,14 @@ class BukuController extends Controller
             'kategori' => ['required'],
             'jenis' => ['required'],
         ], [
-            'kode_buku.required' => 'Kode Tidak Boleh Kosong',
-            'kode_buku.unique' => 'Kode buku sudah terdaftar',
             'judul.required' => 'Judul Buku Harus Diisi',
             'pengarang.required' => 'Pengarang Harus Diisi',
             'penerbit.required' => 'Penerbit Harus Diisi',
-            'thn_terbit.required' => 'Tahun Terbit Harus Diisi',
+            'thn_terbit.required' => 'Tahun Terbit Harus Dipilih',
             'isbn.required' => 'ISBN Harus Diisi',
             'jml_halaman.required' => 'Jumlah Halaman Harus Diisi',
-            'bahasa.required' => 'Bahasa Harus Diisi',
-            'kategori.required' => 'Kategori Harus Diisi',
+            'bahasa.required' => 'Bahasa Harus Dipilih',
+            'kategori.required' => 'Kategori Harus Dipilih',
         ]);
 
         try {

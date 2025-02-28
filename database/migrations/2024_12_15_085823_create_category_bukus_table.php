@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('kode_category');
             $table->string('name');
+            $table->enum('delete_at', ['0', '1'])->default('0');
             $table->timestamps();
         });
     }

@@ -17,16 +17,10 @@
                                 <div class="mb-3">
                                     <label for="kode_category" class="col-form-label">Kode Kategori <span class="required"
                                             style="color:red">*</span></label>
-                                    <input type="text"
-                                        class="@error('e-kode_category') is-invalid @enderror
+                                    <input type="text" class="
                                         form-control"
-                                        id="kode_kategory" name="e-kode_category"
-                                        value="{{ old('e-kode_category', $category->kode_category) }}">
-                                    @error('e-kode_category')
-                                        <div id="validationServer03Feedback" class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
+                                        id="kode_kategory" name="e-kode_category" value="{{ $category->kode_category }}"
+                                        readonly>
                                 </div>
                                 <div class="mb-3">
                                     <label for="e-name" class="col-form-label">Nama <span class="required"

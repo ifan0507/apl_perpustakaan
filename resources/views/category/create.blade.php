@@ -16,15 +16,9 @@
                                 <div class="mb-3">
                                     <label for="kode_category" class="col-form-label">Kode Kategori <span class="required"
                                             style="color:red">*</span></label>
-                                    <input type="text"
-                                        class="@error('kode_category') is-invalid @enderror
+                                    <input type="text" class="
                                         form-control"
-                                        id="kode_kategory" name="kode_category">
-                                    @error('kode_category')
-                                        <div id="validationServer03Feedback" class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
+                                        id="kode_kategory" name="kode_category" value="{{ $kode }}" readonly>
                                 </div>
                                 <div class="mb-3">
                                     <label for="name" class="col-form-label">Nama <span class="required"
